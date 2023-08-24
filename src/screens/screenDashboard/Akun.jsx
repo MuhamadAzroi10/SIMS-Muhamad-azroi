@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import icnProfile from "./../../assets/image/Profile Photo.png";
 import {
   membershipReducer,
   profileFeatures,
@@ -11,6 +12,15 @@ const Akun = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const membership = useSelector(membershipReducer);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageChange = (event) => {
+    const image = event.target.files[0];
+
+    if (image) {
+      setSelectedImage(URL.createObjectURL(image));
+    }
+  };
 
   useEffect(() => {
     dispatch(profileFeatures());
@@ -25,7 +35,44 @@ const Akun = () => {
     <>
       <div className="container_akun">
         <div className="profile">
-          <img src={membership?.profile_image} alt="" />
+          <input
+            type="file"
+            id="imageInput"
+            style={{ display: "none" }}
+            onChange={handleImageChange}
+          />
+
+          {selectedImage ? (
+            <center>
+              <img
+                src={selectedImage}
+                alt="Selected"
+                className="image_custom_profile"
+              />
+
+              <i
+                onClick={() => {
+                  document.getElementById("imageInput").click();
+                }}
+                class="pencil_custom_profile fa-solid fa-pencil"
+              ></i>
+            </center>
+          ) : (
+            <center>
+              <img
+                src={icnProfile}
+                alt="Selected"
+                className="image_custom_profile"
+              />
+
+              <i
+                onClick={() => {
+                  document.getElementById("imageInput").click();
+                }}
+                class="pencil_custom_profile fa-solid fa-pencil"
+              ></i>
+            </center>
+          )}
         </div>
 
         <p className=" is-size-3 custom-line-height has-text-centered has-text-weight-bold pb-6 ">

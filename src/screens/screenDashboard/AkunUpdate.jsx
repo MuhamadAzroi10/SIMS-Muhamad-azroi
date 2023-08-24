@@ -17,14 +17,13 @@ const AkunUpdate = () => {
   const membership = useSelector(membershipReducer);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  console.log(membership);
-
   const handleImageChange = (event) => {
     const image = event.target.files[0];
+
     if (image) {
       setSelectedImage(URL.createObjectURL(image));
       try {
-        const login = dispatch(profileImageFeatures({ file: image }));
+        const login = dispatch(profileImageFeatures(image));
         console.log(login.payload);
       } catch (error) {}
     }
