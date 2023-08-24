@@ -5,6 +5,7 @@ import icnProfile from "./../../assets/image/Profile Photo.png";
 import {
   membershipReducer,
   profileFeatures,
+  profileImageFeatures,
 } from "../../features/MembershipSlice";
 import ElementInput from "../../components/ElementInput";
 
@@ -19,6 +20,11 @@ const Akun = () => {
 
     if (image) {
       setSelectedImage(URL.createObjectURL(image));
+      try {
+        const formData = new FormData();
+        formData.append("file", image);
+        const login = dispatch(profileImageFeatures(formData));
+      } catch (error) {}
     }
   };
 
@@ -60,7 +66,11 @@ const Akun = () => {
           ) : (
             <center>
               <img
-                src={icnProfile}
+                src={
+                  membership.profile_image
+                    ? membership.profile_image
+                    : icnProfile
+                }
                 alt="Selected"
                 className="image_custom_profile"
               />

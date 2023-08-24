@@ -23,7 +23,9 @@ const AkunUpdate = () => {
     if (image) {
       setSelectedImage(URL.createObjectURL(image));
       try {
-        const login = dispatch(profileImageFeatures(image));
+        const formData = new FormData();
+        formData.append("file", image);
+        const login = dispatch(profileImageFeatures(formData));
         console.log(login.payload);
       } catch (error) {}
     }
@@ -92,7 +94,11 @@ const AkunUpdate = () => {
           ) : (
             <center>
               <img
-                src={icnProfile}
+                src={
+                  membership.profile_image
+                    ? membership.profile_image
+                    : icnProfile
+                }
                 alt="Selected"
                 className="image_custom_profile"
               />

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-
 import icnProfile from "./../assets/image/Profile Photo.png";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -33,7 +32,13 @@ const ElementProfile = () => {
     <>
       <div className=" container_profile">
         <div className="left">
-          <img className="foto_profile" src={icnProfile} alt="" />
+          <img
+            src={
+              membership.profile_image ? membership.profile_image : icnProfile
+            }
+            alt="Selected"
+            className="foto_profile"
+          />
           <p className=" is-size-6  ">Selamat Datang</p>
           <p className=" is-size-3 has-text-weight-bold ">
             {membership.first_name} {membership.last_name}
